@@ -1,0 +1,8 @@
+[package]
+name = "kbd_layout_synonym_finder"
+version = "0.1.0"
+authors = ["Joren Van Onder <jov@odoo.com>"]
+edition = "2018"
+
+[dependencies]
+clap = "~2.32"
