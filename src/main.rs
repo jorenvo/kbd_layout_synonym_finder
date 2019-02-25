@@ -29,14 +29,14 @@ fn create_layouts() -> HashMap<String, KbdLayout> {
         name: "dvorak".to_string(),
         keys: &[
             '\'', ',', '.', 'p', 'y', 'f', 'g', 'c', 'r', 'l', 'a', 'o', 'e', 'u', 'i', 'd', 'h',
-            't', 'n', 's', ';', 'q', 'j', 'k', 'x', 'b', 'm', 'w', 'v', 'z',
+            't', 'n', 's', '-', ';', 'q', 'j', 'k', 'x', 'b', 'm', 'w', 'v', 'z',
         ],
     };
     let qwerty = KbdLayout {
         name: "qwerty".to_string(),
         keys: &[
             'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j',
-            'k', 'l', ';', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/',
+            'k', 'l', ';', '\'', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/',
         ],
     };
 
@@ -54,7 +54,7 @@ mod test_layouts {
         let layouts = create_layouts();
 
         for layout in layouts.values() {
-            assert_eq!(layout.keys.len(), 30);
+            assert_eq!(layout.keys.len(), 31);
         }
     }
 }
