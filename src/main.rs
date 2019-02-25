@@ -156,7 +156,7 @@ fn main() {
             .collect();
 
         if !invalid && words.contains(&translated) {
-            println!("{}, {}", word, translated);
+            println!("{},{}", word, translated);
         }
     }
 }
