@@ -123,11 +123,7 @@ fn main() {
             })
             .collect();
 
-        if invalid {
-            continue;
-        }
-
-        if words.contains(&translated) {
+        if !invalid && words.contains(&translated) {
             println!("{} = {}", word, translated);
         }
     }
