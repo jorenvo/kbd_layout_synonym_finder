@@ -11,6 +11,7 @@
 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#![deny(clippy::pedantic)]
 extern crate clap;
 use clap::{App, Arg};
 use std::collections::{HashMap, HashSet};
@@ -138,7 +139,7 @@ fn main() {
 
     let words = read_words(matches.value_of("dictionary").unwrap()).unwrap();
 
-    for word in words.iter() {
+    for word in &words {
         if word.len() < minimum_length {
             continue;
         }
