@@ -1,0 +1,17 @@
+* Keyboard layout synonym finder
+This program calculates the words that typed in one layout result in a valid word in the other layout. Results of 4 characters or more can be found at [[results][results]].
+* Usage
+#+BEGIN_EXAMPLE
+USAGE:
+    kbd_layout_synonym_finder [OPTIONS] -d <dictionary> -f <from> -t <to>
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+
+OPTIONS:
+    -d <dictionary>            Path to dictionary to use
+    -f <from>                  The configured keyboard layout [possible values: dvorak, workman, colemak, qwerty]
+    -l <minimum_length>        Minimum length of synonym to output [default: 2]
+    -t <to>                    The keyboard layout in which is typed [possible values: dvorak, workman, colemak, qwerty]
+#+END_EXAMPLE
