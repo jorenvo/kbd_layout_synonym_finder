@@ -39,9 +39,25 @@ fn create_layouts() -> HashMap<String, KbdLayout> {
             'k', 'l', ';', '\'', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/',
         ],
     };
+    let colemak = KbdLayout {
+        name: "colemak".to_string(),
+        keys: &[
+            'q', 'w', 'f', 'p', 'g', 'j', 'l', 'u', 'y', ';', 'a', 'r', 's', 't', 'd', 'h', 'n',
+            'e', 'i', 'o', '\'', 'z', 'x', 'c', 'v', 'b', 'k', 'm', ',', '.', '/',
+        ],
+    };
+    let workman = KbdLayout {
+        name: "workman".to_string(),
+        keys: &[
+            'q', 'd', 'r', 'w', 'b', 'j', 'f', 'u', 'p', ';', 'a', 's', 'h', 't', 'g', 'y', 'n',
+            'e', 'o', 'i', '\'', 'z', 'x', 'm', 'c', 'v', 'k', 'l', ',', '.', '/',
+        ],
+    };
 
     layouts.insert(dvorak.name.clone(), dvorak);
     layouts.insert(qwerty.name.clone(), qwerty);
+    layouts.insert(colemak.name.clone(), colemak);
+    layouts.insert(workman.name.clone(), workman);
     layouts
 }
 
