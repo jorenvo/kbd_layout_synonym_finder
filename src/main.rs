@@ -126,8 +126,8 @@ fn main() {
     let from = matches.value_of("from").unwrap();
     let to = matches.value_of("to").unwrap();
 
-    let from_keys = layouts.get(from).unwrap().keys.iter();
-    let to_keys = layouts.get(to).unwrap().keys.iter();
+    let from_keys = layouts[from].keys.iter();
+    let to_keys = layouts[to].keys.iter();
     let translator: HashMap<&char, &char> = from_keys.zip(to_keys).collect();
 
     let minimum_length = matches
