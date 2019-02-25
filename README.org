@@ -1,5 +1,5 @@
 * Keyboard layout synonym finder
-This program calculates the words that typed in one layout result in a valid word in the other layout. Results of 4 characters or more can be found at [[results][results]].
+This program calculates the words that typed in one layout result in a valid word in the other layout. Results of 4 characters or more can be found in [[results][results]].
 * Usage
 #+BEGIN_EXAMPLE
 USAGE:
