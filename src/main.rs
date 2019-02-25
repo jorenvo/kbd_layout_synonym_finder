@@ -111,10 +111,19 @@ fn main() {
     let words = read_words(matches.value_of("dictionary").unwrap()).unwrap();
 
     for word in words.iter() {
+        let mut invalid = false;
         let translated: String = word
             .chars()
-            .map(|c| *translator.get(&c).unwrap_or(&&' '))
+            .map(|c| *translator.get(&c).unwrap_or_else(|| {
+                invalid = true;
+                &&' '
+            }))
             .collect();
+
+        if invalid {
+            println!("{} was invalid", word);
+            continue;
+        }
 
         if words.contains(&translated) {
             println!("{} = {}", word, translated);
