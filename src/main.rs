@@ -110,9 +110,9 @@ fn main() {
     let from = matches.value_of("from").unwrap();
     let to = matches.value_of("to").unwrap();
 
-    let from = layouts.get(from).unwrap().keys.iter();
-    let to = layouts.get(to).unwrap().keys.iter();
-    let translator: HashMap<&char, &char> = from.zip(to).collect();
+    let from_keys = layouts.get(from).unwrap().keys.iter();
+    let to_keys = layouts.get(to).unwrap().keys.iter();
+    let translator: HashMap<&char, &char> = from_keys.zip(to_keys).collect();
 
     let minimum_length = matches
         .value_of("minimum_length")
@@ -140,7 +140,7 @@ fn main() {
             .collect();
 
         if !invalid && words.contains(&translated) {
-            println!("{} = {}", word, translated);
+            println!("{}, {}", word, translated);
         }
     }
 }
