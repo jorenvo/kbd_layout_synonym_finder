@@ -1,6 +1,9 @@
 extern crate clap;
 use clap::{App, Arg};
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
+use std::fs::File;
+use std::io;
+use std::io::{BufRead, BufReader};
 
 struct KbdLayout {
     name: String,
@@ -43,7 +46,20 @@ mod test_layouts {
     }
 }
 
+fn read_words(dictionary: &str) -> Result<HashSet<String>, io::Error> {
+    let mut words = HashSet::new();
+    let file = File::open(dictionary)?;
+
+    for line in BufReader::new(file).lines() {
+        words.insert(line?);
+    }
+
+    Ok(words)
+}
+
 fn main() {
+    let layouts = create_layouts();
+    let layout_names: Vec<&str> = layouts.keys().map(|n| n.as_str()).collect();
     let matches = App::new("Keyboard layout synonym finder")
         .version("1.0")
         .author("Joren Van Onder <joren.vanonder@gmail.com>")
@@ -52,6 +68,7 @@ fn main() {
                 .short("f")
                 .help("The configured keyboard layout")
                 .takes_value(true)
+                .possible_values(&layout_names)
                 .required(true),
         )
         .arg(
@@ -59,10 +76,35 @@ fn main() {
                 .short("t")
                 .help("The keyboard layout in which is typed")
                 .takes_value(true)
+                .possible_values(&layout_names)
+                .required(true),
+        )
+        .arg(
+            Arg::with_name("dictionary")
+                .short("d")
+                .help("Path to dictionary to use")
+                .takes_value(true)
                 .required(true),
         )
         .get_matches();
 
-    let from = matches.value_of("from");
-    let layouts = create_layouts();
+    let from = matches.value_of("from").unwrap();
+    let to = matches.value_of("to").unwrap();
+
+    let from = layouts.get(from).unwrap().keys.iter();
+    let to = layouts.get(to).unwrap().keys.iter();
+    let translator: HashMap<&char, &char> = from.zip(to).collect();
+
+    let words = read_words(matches.value_of("dictionary").unwrap()).unwrap();
+
+    for word in words.iter() {
+        let translated: String = word
+            .chars()
+            .map(|c| *translator.get(&c).unwrap_or(&&' '))
+            .collect();
+
+        if words.contains(&translated) {
+            println!("{} = {}", word, translated);
+        }
+    }
 }
