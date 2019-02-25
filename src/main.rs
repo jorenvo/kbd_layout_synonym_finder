@@ -113,15 +113,17 @@ fn main() {
     for word in words.iter() {
         let mut invalid = false;
         let translated: String = word
+            .to_lowercase()
             .chars()
-            .map(|c| *translator.get(&c).unwrap_or_else(|| {
-                invalid = true;
-                &&' '
-            }))
+            .map(|c| {
+                *translator.get(&c).unwrap_or_else(|| {
+                    invalid = true;
+                    &&' '
+                })
+            })
             .collect();
 
         if invalid {
-            println!("{} was invalid", word);
             continue;
         }
 
