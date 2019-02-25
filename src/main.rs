@@ -99,6 +99,12 @@ fn main() {
                 .takes_value(true)
                 .required(true),
         )
+        .arg(
+            Arg::with_name("minimum_length")
+                .short("l")
+                .help("Minimum length of synonym to output")
+                .default_value("2"),
+        )
         .get_matches();
 
     let from = matches.value_of("from").unwrap();
@@ -108,9 +114,19 @@ fn main() {
     let to = layouts.get(to).unwrap().keys.iter();
     let translator: HashMap<&char, &char> = from.zip(to).collect();
 
+    let minimum_length = matches
+        .value_of("minimum_length")
+        .unwrap()
+        .parse::<usize>()
+        .unwrap();
+
     let words = read_words(matches.value_of("dictionary").unwrap()).unwrap();
 
     for word in words.iter() {
+        if word.len() < minimum_length {
+            continue;
+        }
+
         let mut invalid = false;
         let translated: String = word
             .to_lowercase()
